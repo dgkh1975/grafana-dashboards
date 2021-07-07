@@ -14,7 +14,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "6.7.3"
+      "version": "7.3.7"
     },
     {
       "type": "panel",
@@ -54,7 +54,7 @@
   "gnetId": 367,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1600845908202,
+  "iteration": 1625652439066,
   "links": [],
   "panels": [
     {
@@ -81,6 +81,13 @@
       "description": "",
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 0,
       "grid": {},
@@ -109,9 +116,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -157,22 +165,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(haproxy_frontend_http_responses_total{proxy=~\"$frontend\",code=~\"$code\",instance=\"$host\"}[5m])) by (code)",
+          "expr": "sum(rate(haproxy_frontend_http_responses_total{proxy=~\"$frontend\",code=~\"$code\",instance=\"$host\"}[$__rate_interval])) by (code)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Front {{ code }}",
           "metric": "",
           "refId": "A",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_http_responses_total{proxy=~\"$backend\",code=~\"$code\",instance=\"$host\"}[5m])) by (code)",
+          "expr": "sum(rate(haproxy_backend_http_responses_total{proxy=~\"$backend\",code=~\"$code\",instance=\"$host\"}[$__rate_interval])) by (code)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Back {{ code }}",
           "metric": "",
           "refId": "B",
-          "step": 30
+          "step": 240
         }
       ],
       "thresholds": [],
@@ -229,6 +237,13 @@
       "description": "",
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 0,
       "grid": {},
@@ -258,9 +273,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -276,31 +292,31 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(haproxy_frontend_bytes_in_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])*8) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_bytes_in_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])*8) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "IN Front",
           "metric": "",
           "refId": "A",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_frontend_bytes_out_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])*8) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_bytes_out_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])*8) by (instance)",
           "interval": "$interval",
           "intervalFactor": 2,
           "legendFormat": "OUT Front",
           "refId": "B",
-          "step": 60
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_bytes_in_total{proxy=~\"$backend\",instance=\"$host\"}[5m])*8) by (instance)",
+          "expr": "sum(rate(haproxy_backend_bytes_in_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])*8) by (instance)",
           "intervalFactor": 2,
           "legendFormat": "IN Back",
           "refId": "C",
           "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_bytes_out_total{proxy=~\"$backend\",instance=\"$host\"}[5m])*8) by (instance)",
+          "expr": "sum(rate(haproxy_backend_bytes_out_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])*8) by (instance)",
           "intervalFactor": 2,
           "legendFormat": "OUT Back",
           "refId": "D",
@@ -360,6 +376,13 @@
       "description": "",
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 0,
       "grid": {},
@@ -388,9 +411,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -407,23 +431,23 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(haproxy_frontend_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Front",
           "metric": "",
           "refId": "A",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_connection_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_backend_connection_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "hide": false,
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Back errors",
           "metric": "",
           "refId": "C",
-          "step": 30
+          "step": 240
         }
       ],
       "thresholds": [],
@@ -479,6 +503,13 @@
       "description": "",
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 0,
       "grid": {},
@@ -507,9 +538,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -535,55 +567,55 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(haproxy_frontend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Front requests",
           "metric": "",
           "refId": "A",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_frontend_request_errors_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_request_errors_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Front requests errors",
           "metric": "",
           "refId": "C",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_frontend_requests_denied_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_frontend_requests_denied_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 2,
           "legendFormat": "Front request denied",
           "refId": "F",
-          "step": 60
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_redispatch_warnings_total{proxy=~\"$backend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_backend_redispatch_warnings_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 2,
           "legendFormat": "Back redispatch warnings",
           "refId": "D",
-          "step": 60
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_retry_warnings_total{proxy=~\"$backend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_backend_retry_warnings_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 2,
           "legendFormat": "Back retry warnings",
           "refId": "E",
-          "step": 60
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_response_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_backend_response_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Back response errors",
           "metric": "",
           "refId": "I",
-          "step": 30
+          "step": 240
         },
         {
           "expr": "sum(haproxy_backend_current_queue{proxy=~\"$backend\",instance=\"$host\"}) by (instance)",
@@ -591,16 +623,16 @@
           "intervalFactor": 2,
           "legendFormat": "Back queued requests",
           "refId": "G",
-          "step": 60
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_http_requests_total{proxy=~\"$backend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(rate(haproxy_backend_http_requests_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Back requests",
           "metric": "",
           "refId": "H",
-          "step": 30
+          "step": 240
         }
       ],
       "thresholds": [],
@@ -656,6 +688,13 @@
       "description": "",
       "editable": true,
       "error": false,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 2,
       "fillGradient": 0,
       "grid": {},
@@ -684,9 +723,10 @@
       "maxPerRow": 2,
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -702,22 +742,22 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum(irate(haproxy_frontend_current_sessions{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(haproxy_frontend_current_sessions{proxy=~\"$frontend\",instance=\"$host\"}) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Front",
           "metric": "",
           "refId": "B",
-          "step": 30
+          "step": 240
         },
         {
-          "expr": "sum(irate(haproxy_backend_current_sessions{proxy=~\"$frontend\",instance=\"$host\"}[5m])) by (instance)",
+          "expr": "sum(haproxy_backend_current_sessions{proxy=~\"$frontend\",instance=\"$host\"}) by (instance)",
           "interval": "$interval",
           "intervalFactor": 1,
           "legendFormat": "Back",
           "metric": "",
           "refId": "A",
-          "step": 30
+          "step": 240
         }
       ],
       "thresholds": [],
@@ -786,6 +826,13 @@
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "links": []
+        },
+        "overrides": []
+      },
       "fill": 5,
       "fillGradient": 0,
       "gridPos": {
@@ -814,9 +861,10 @@
       "links": [],
       "nullPointMode": "null",
       "options": {
-        "dataLinks": []
+        "alertThreshold": true
       },
       "percentage": false,
+      "pluginVersion": "7.3.7",
       "pointradius": 5,
       "points": false,
       "renderer": "flot",
@@ -838,7 +886,7 @@
           "intervalFactor": 2,
           "legendFormat": "Front Up",
           "refId": "A",
-          "step": 60
+          "step": 240
         },
         {
           "expr": "count(haproxy_backend_status{instance=\"$host\"} ==1)",
@@ -846,7 +894,7 @@
           "intervalFactor": 2,
           "legendFormat": "Back Up",
           "refId": "B",
-          "step": 60
+          "step": 240
         }
       ],
       "thresholds": [],
@@ -903,6 +951,12 @@
       ],
       "datasource": "${DS_PROMETHEUS}",
       "decimals": 0,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {}
+        },
+        "overrides": []
+      },
       "format": "s",
       "gauge": {
         "maxValue": 100,
@@ -959,7 +1013,7 @@
           "expr": "time() - haproxy_process_start_time_seconds{instance=\"$host\"}",
           "intervalFactor": 2,
           "refId": "A",
-          "step": 1800
+          "step": 240
         }
       ],
       "thresholds": "",
@@ -997,6 +1051,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1026,9 +1087,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1044,21 +1106,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_bytes_in_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_frontend_bytes_in_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])*8",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "IN {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_bytes_out_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_frontend_bytes_out_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])*8",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "OUT {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1115,6 +1177,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1143,9 +1212,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1161,21 +1231,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_bytes_in_total{proxy=~\"$backend\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_backend_bytes_in_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])*8",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "IN {{ proxy }}",
               "metric": "haproxy_backend_",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_bytes_out_total{proxy=~\"$backend\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_backend_bytes_out_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])*8",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "OUT {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1231,6 +1301,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1259,9 +1336,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1277,22 +1355,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Successful {{ proxy }}",
               "metric": "haproxy_backe",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_denied_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_denied_connections_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Denied {{ proxy }}",
               "metric": "haproxy_backe",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1348,6 +1426,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1376,9 +1461,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1394,22 +1480,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_connection_attempts_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_connection_attempts_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Attempts {{ proxy }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_connection_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_connection_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Error {{ proxy }}",
               "refId": "A",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1465,6 +1551,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 0,
           "fillGradient": 0,
           "grid": {},
@@ -1493,9 +1586,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1511,7 +1605,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "haproxy_backe",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1567,6 +1661,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1595,9 +1696,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1607,12 +1709,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_connection_reuses_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_connection_reuses_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Reuses {{ proxy }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1729,7 +1831,7 @@
               "legendFormat": "Queued {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1831,7 +1933,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -1903,6 +2005,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -1910,7 +2019,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 9
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 134,
@@ -1931,9 +2040,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -1949,21 +2059,21 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_requests_denied_total{proxy=~\"$frontend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_requests_denied_total{proxy=~\"$frontend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Denied {{ proxy }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2019,6 +2129,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2026,7 +2143,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 9
+            "y": 5
           },
           "hiddenSeries": false,
           "id": 46,
@@ -2047,9 +2164,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2070,29 +2188,29 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_requests_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_request_errors_total{proxy=~\"$frontend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_request_errors_total{proxy=~\"$frontend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Error {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_requests_denied_total{proxy=~\"$frontend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_requests_denied_total{proxy=~\"$frontend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Denied {{ proxy }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2148,6 +2266,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2155,7 +2280,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 23
+            "y": 19
           },
           "hiddenSeries": false,
           "id": 126,
@@ -2178,9 +2303,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2190,13 +2316,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_responses_denied_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_responses_denied_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Denied {{ proxy }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2252,6 +2378,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2259,7 +2392,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 23
+            "y": 19
           },
           "hiddenSeries": false,
           "id": 115,
@@ -2280,9 +2413,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2298,13 +2432,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_responses_denied_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_responses_denied_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Denied {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2360,6 +2494,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2367,7 +2508,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 37
+            "y": 33
           },
           "hiddenSeries": false,
           "id": 35,
@@ -2389,10 +2530,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2408,29 +2547,29 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_redispatch_warnings_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_redispatch_warnings_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Redispatch {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_retry_warnings_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_retry_warnings_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Retry {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_response_errors_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_response_errors_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Error {{ proxy }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2486,6 +2625,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2493,7 +2639,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 37
+            "y": 33
           },
           "hiddenSeries": false,
           "id": 138,
@@ -2515,10 +2661,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2540,7 +2684,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2612,6 +2756,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2619,7 +2770,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 11
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 132,
@@ -2640,9 +2791,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2658,7 +2810,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2714,6 +2866,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2721,7 +2880,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 11
+            "y": 6
           },
           "hiddenSeries": false,
           "id": 209,
@@ -2742,9 +2901,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2760,7 +2920,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2816,6 +2976,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2823,7 +2990,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 25
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 178,
@@ -2844,9 +3011,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2862,7 +3030,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "D",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -2918,6 +3086,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -2925,7 +3100,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 25
+            "y": 20
           },
           "hiddenSeries": false,
           "id": 210,
@@ -2946,9 +3121,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -2964,7 +3140,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "D",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3020,6 +3196,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -3027,7 +3210,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 39
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 177,
@@ -3047,10 +3230,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3066,7 +3247,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3122,6 +3303,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -3129,7 +3317,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 39
+            "y": 34
           },
           "hiddenSeries": false,
           "id": 211,
@@ -3149,10 +3337,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3168,7 +3354,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3224,6 +3410,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -3231,7 +3424,7 @@
             "h": 14,
             "w": 12,
             "x": 0,
-            "y": 53
+            "y": 48
           },
           "hiddenSeries": false,
           "id": 127,
@@ -3251,10 +3444,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3270,7 +3461,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3327,6 +3518,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -3334,7 +3532,7 @@
             "h": 14,
             "w": 12,
             "x": 12,
-            "y": 53
+            "y": 48
           },
           "hiddenSeries": false,
           "id": 212,
@@ -3354,10 +3552,8 @@
           "links": [],
           "maxPerRow": 2,
           "nullPointMode": "null",
-          "options": {
-            "dataLinks": []
-          },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -3373,7 +3569,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3485,13 +3681,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_http_responses_total{proxy=~\"$frontend\", code=~\"$code\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_responses_total{proxy=~\"$frontend\", code=~\"$code\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ code }} {{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3587,13 +3783,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_http_responses_total{proxy=~\"$backend\", code=~\"$code\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_responses_total{proxy=~\"$backend\", code=~\"$code\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ code }} {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3689,13 +3885,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_http_responses_total{proxy=~\"$backend\",server=~\"$server\",code=~\"$code\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_http_responses_total{proxy=~\"$backend\",server=~\"$server\",code=~\"$code\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ code }} {{ proxy }} {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3813,24 +4009,24 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_sessions_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_sessions_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_denied_sessions_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_denied_sessions_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Denied {{ proxy }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_frontend_current_sessions{proxy=~\"$frontend\",instance=\"$host\"}",
@@ -3840,7 +4036,7 @@
               "legendFormat": "Current active {{ proxy }}",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -3936,14 +4132,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_sessions_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_sessions_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_backend_current_sessions{proxy=~\"$backend\",instance=\"$host\"}",
@@ -3953,7 +4149,7 @@
               "legendFormat": "Current active {{ proxy }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4062,7 +4258,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_backend_limit_sessions{proxy=~\"$backend\",instance=\"$host\"}",
@@ -4070,7 +4266,7 @@
               "intervalFactor": 2,
               "legendFormat": "Limit {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4179,7 +4375,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_frontend_limit_sessions{proxy=~\"$frontend\",instance=\"$host\"}",
@@ -4187,7 +4383,7 @@
               "intervalFactor": 2,
               "legendFormat": "Limit {{ proxy }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4290,7 +4486,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4399,7 +4595,7 @@
               "legendFormat": "Max {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_frontend_limit_session_rate{proxy=~\"$frontend\",instance=\"$host\"}",
@@ -4407,7 +4603,7 @@
               "intervalFactor": 2,
               "legendFormat": "Limit {{ proxy }}",
               "refId": "B",
-              "step": 2
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4503,13 +4699,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_failed_header_rewriting_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_failed_header_rewriting_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4605,13 +4801,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_failed_header_rewriting_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_failed_header_rewriting_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4718,13 +4914,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_last_session_seconds{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_last_session_seconds{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4827,7 +5023,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -4929,22 +5125,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_client_aborts_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_client_aborts_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "By client {{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_server_aborts_total{proxy=~\"$frontend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_server_aborts_total{proxy=~\"$frontend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "By server {{ proxy }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5051,7 +5247,7 @@
               "legendFormat": "By client {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_server_server_aborts_total{proxy=~\"$frontend\",server=~\"$server\",instance=\"$host\"}",
@@ -5060,7 +5256,7 @@
               "legendFormat": "By server {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5131,6 +5327,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5159,9 +5362,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5171,13 +5375,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_check_up_down_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_check_up_down_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5233,6 +5437,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5261,9 +5472,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5279,7 +5491,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5287,6 +5499,116 @@
           "timeRegions": [],
           "timeShift": null,
           "title": "Back - Service weight",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 1,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:2191",
+              "format": "short",
+              "label": "weight",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:2192",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": "",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 2,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 14,
+            "w": 12,
+            "x": 12,
+            "y": 23
+          },
+          "hiddenSeries": false,
+          "id": 220,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxPerRow": 2,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "haproxy_backend_uweight{proxy=~\"$backend\", instance=\"$host\"}",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "{{ proxy }}",
+              "metric": "",
+              "refId": "A",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Back - Service user weight",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -5352,6 +5674,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5380,9 +5709,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5398,22 +5728,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_http_cache_lookups_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_cache_lookups_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Lookups {{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_http_cache_hits_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_cache_hits_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Hits {{ proxy }} ",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5470,6 +5800,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5498,9 +5835,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5516,22 +5854,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_http_cache_lookups_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_cache_lookups_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Lookups {{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_http_cache_hits_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_cache_hits_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Hits {{ proxy }} ",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5588,6 +5926,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5616,9 +5961,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5639,31 +5985,31 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_http_comp_bytes_in_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_comp_bytes_in_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes fed {{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_http_comp_bytes_out_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_comp_bytes_out_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes emitted {{ proxy }} ",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_frontend_http_comp_bytes_bypassed_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_comp_bytes_bypassed_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes bypassed  {{ proxy }} ",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5720,6 +6066,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5748,9 +6101,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5771,31 +6125,31 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_http_comp_bytes_in_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_comp_bytes_in_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes fed {{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_http_comp_bytes_out_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_comp_bytes_out_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes emitted {{ proxy }} ",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_backend_http_comp_bytes_bypassed_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_comp_bytes_bypassed_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Bytes bypassed  {{ proxy }} ",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5852,6 +6206,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5880,9 +6241,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5892,13 +6254,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_http_comp_responses_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_http_comp_responses_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -5955,6 +6317,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -5983,9 +6352,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -5995,13 +6365,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_http_comp_responses_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_http_comp_responses_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} ",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6072,6 +6442,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 0,
           "fillGradient": 0,
           "grid": {},
@@ -6100,9 +6477,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6118,7 +6496,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6173,6 +6551,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 0,
           "fillGradient": 0,
           "grid": {},
@@ -6201,9 +6586,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6219,7 +6605,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6274,6 +6660,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -6302,9 +6695,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6314,13 +6708,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_frontend_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_frontend_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6375,6 +6769,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -6403,9 +6804,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6415,13 +6817,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_backend_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_backend_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6476,6 +6878,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 0,
           "fillGradient": 0,
           "grid": {},
@@ -6504,9 +6913,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6522,7 +6932,7 @@
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6577,6 +6987,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 0,
           "fillGradient": 0,
           "grid": {},
@@ -6605,9 +7022,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6693,6 +7111,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -6721,9 +7146,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6739,22 +7165,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_bytes_in_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_server_bytes_in_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])*8",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "IN {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_bytes_out_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])*8",
+              "expr": "rate(haproxy_server_bytes_out_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])*8",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "OUT {{ proxy }} / {{ server }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6810,6 +7236,136 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 2,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 9,
+            "w": 24,
+            "x": 0,
+            "y": 20
+          },
+          "hiddenSeries": false,
+          "id": 219,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxPerRow": 2,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:16701",
+              "alias": "/.*Estimated.*/",
+              "fill": 0
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(haproxy_server_used_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
+              "interval": "$interval",
+              "intervalFactor": 2,
+              "legendFormat": "In use {{ proxy }} / {{ server }}{{ proxy }}",
+              "refId": "A",
+              "step": 240
+            },
+            {
+              "expr": "rate(haproxy_server_idle_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
+              "interval": "$interval",
+              "intervalFactor": 2,
+              "legendFormat": "Estimated {{ proxy }} / {{ server }}{{ proxy }}",
+              "refId": "C",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Server - Connections",
+          "tooltip": {
+            "msResolution": true,
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:356",
+              "format": "short",
+              "label": "counter",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:357",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": "",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -6817,7 +7373,7 @@
             "h": 8,
             "w": 24,
             "x": 0,
-            "y": 20
+            "y": 29
           },
           "hiddenSeries": false,
           "id": 130,
@@ -6838,9 +7394,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6856,22 +7413,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_connection_attempts_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_connection_attempts_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Attempts {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_connection_errors_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_connection_errors_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Error {{ proxy }} / {{ server }}",
               "refId": "A",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -6927,6 +7484,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -6934,7 +7498,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 28
+            "y": 37
           },
           "hiddenSeries": false,
           "id": 179,
@@ -6955,9 +7519,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -6967,12 +7532,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_connection_reuses_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_connection_reuses_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Reuses {{ proxy }} / {{ server }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7028,6 +7593,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -7035,7 +7607,7 @@
             "h": 9,
             "w": 24,
             "x": 0,
-            "y": 37
+            "y": 46
           },
           "hiddenSeries": false,
           "id": 186,
@@ -7056,9 +7628,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -7067,6 +7640,11 @@
               "$$hashKey": "object:16701",
               "alias": "/.*limit.*/",
               "fill": 0
+            },
+            {
+              "$$hashKey": "object:1142",
+              "alias": "/.*unsafe.*/",
+              "transform": "negative-Y"
             }
           ],
           "spaceLength": 10,
@@ -7074,20 +7652,36 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_server_idle_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_idle_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Available idle connections {{ proxy }} / {{ server }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_server_idle_connections_limit{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_idle_connections_limit{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Limit available idle connections {{ proxy }} / {{ server }}{{ proxy }}",
               "refId": "A",
-              "step": 60
+              "step": 240
+            },
+            {
+              "expr": "rate(haproxy_server_safe_idle_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
+              "interval": "$interval",
+              "intervalFactor": 2,
+              "legendFormat": "Number of safe idle connections {{ proxy }} / {{ server }}{{ proxy }}",
+              "refId": "B",
+              "step": 240
+            },
+            {
+              "expr": "rate(haproxy_server_unsafe_idle_connections_current{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
+              "interval": "$interval",
+              "intervalFactor": 2,
+              "legendFormat": "Number of unsafe idle connections {{ proxy }} / {{ server }}{{ proxy }}",
+              "refId": "D",
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7200,13 +7794,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_responses_denied_total{proxy=~\"$backend\", instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_responses_denied_total{proxy=~\"$backend\", instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Denied {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7310,32 +7904,32 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_redispatch_warnings_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_redispatch_warnings_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Redispatch {{ proxy }} / {{ server }}",
               "refId": "B",
-              "step": 60
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_retry_warnings_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_retry_warnings_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Retry {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_response_errors_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_response_errors_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 2,
               "legendFormat": "Error {{ proxy }} / {{ server }}",
               "refId": "C",
-              "step": 60
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7431,13 +8025,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_current_queue{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_current_queue{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Current {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7546,7 +8140,7 @@
               "legendFormat": "Max {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_server_queue_limit{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}",
@@ -7669,7 +8263,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7771,7 +8365,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7873,7 +8467,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -7975,7 +8569,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8077,7 +8671,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "D",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8179,7 +8773,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "haproxy_backend_current_queue",
               "refId": "D",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8275,13 +8869,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_queue_time_average_seconds{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_queue_time_average_seconds{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8377,13 +8971,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_max_queue_time_seconds{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_max_queue_time_seconds{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8507,26 +9101,26 @@
               "legendFormat": "Current {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_sessions_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_sessions_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_server_max_sessions{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_max_sessions{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "hide": true,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Max {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_server_limit_sessions{proxy=~\"$backend\",instance=\"$host\"}",
@@ -8535,7 +9129,7 @@
               "legendFormat": "Limit {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "D",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8642,13 +9236,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_failed_header_rewriting_total{proxy=~\"$frontend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_failed_header_rewriting_total{proxy=~\"$frontend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} /  {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8756,7 +9350,7 @@
               "legendFormat": "Rate {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_server_limit_session_rate{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}",
@@ -8765,7 +9359,7 @@
               "legendFormat": "Limit {{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8836,6 +9430,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -8864,9 +9465,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8882,7 +9484,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -8935,10 +9537,16 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "${DS_PROMETHEUS}",
-          "decimals": 1,
-          "description": "",
+          "description": "Server's user weight, or sum of active servers' user weights for a backend",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -8947,6 +9555,117 @@
             "w": 24,
             "x": 0,
             "y": 24
+          },
+          "hiddenSeries": false,
+          "id": 215,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxPerRow": 2,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "haproxy_server_uweight{proxy=~\"$backend\",instance=\"$host\"}",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "{{ proxy }}",
+              "metric": "",
+              "refId": "A",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Server - Users weight",
+          "tooltip": {
+            "msResolution": true,
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:11421",
+              "format": "none",
+              "label": "weight",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:11422",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "decimals": 1,
+          "description": "",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 2,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 8,
+            "w": 24,
+            "x": 0,
+            "y": 32
           },
           "hiddenSeries": false,
           "id": 56,
@@ -8967,9 +9686,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -8979,13 +9699,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_check_up_down_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_check_up_down_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9042,6 +9762,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9049,7 +9776,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 32
+            "y": 40
           },
           "hiddenSeries": false,
           "id": 185,
@@ -9070,9 +9797,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9082,13 +9810,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_check_failures_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_check_failures_total{proxy=~\"$backend\",server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9145,6 +9873,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9152,7 +9887,7 @@
             "h": 11,
             "w": 24,
             "x": 0,
-            "y": 43
+            "y": 51
           },
           "hiddenSeries": false,
           "id": 204,
@@ -9173,9 +9908,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9191,7 +9927,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9248,6 +9984,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9255,7 +9998,7 @@
             "h": 10,
             "w": 24,
             "x": 0,
-            "y": 54
+            "y": 62
           },
           "hiddenSeries": false,
           "id": 90,
@@ -9276,9 +10019,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9294,7 +10038,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9351,6 +10095,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9358,7 +10109,7 @@
             "h": 7,
             "w": 24,
             "x": 0,
-            "y": 64
+            "y": 72
           },
           "hiddenSeries": false,
           "id": 144,
@@ -9379,9 +10130,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9391,13 +10143,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_last_session_seconds{proxy=~\"$backend\", server=~\"$server\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_last_session_seconds{proxy=~\"$backend\", server=~\"$server\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9468,6 +10220,13 @@
           "description": "",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9496,9 +10255,10 @@
           "maxPerRow": 2,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9521,7 +10281,7 @@
               "legendFormat": "{{ proxy }} / {{ server }}",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9576,6 +10336,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 1,
           "fillGradient": 0,
           "grid": {},
@@ -9604,9 +10371,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9616,13 +10384,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_server_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_server_internal_errors_total{proxy=~\"$backend\",instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "{{ proxy }}",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9630,6 +10398,116 @@
           "timeRegions": [],
           "timeShift": null,
           "title": "Server - Internal errors",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:1409",
+              "format": "short",
+              "label": "counter",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:1410",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "description": "Number of failed DNS resolutions in current worker process since started",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 1,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 7,
+            "w": 24,
+            "x": 0,
+            "y": 32
+          },
+          "hiddenSeries": false,
+          "id": 216,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "maxPerRow": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(haproxy_process_failed_resolutions{instance=\"$host\"}[$__rate_interval])",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Failed",
+              "metric": "",
+              "refId": "A",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Server - Failed DNS resolutions",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -9692,6 +10570,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9720,9 +10605,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9744,7 +10630,7 @@
               "legendFormat": "Current number of sessions per second over last elapsed second",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_limit_session_rate{instance=\"$host\"}",
@@ -9753,7 +10639,7 @@
               "legendFormat": "Configured maximum number of sessions per second",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_session_rate{instance=\"$host\"}",
@@ -9763,7 +10649,7 @@
               "legendFormat": "Maximum observed number of sessions per second",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9818,6 +10704,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9846,9 +10739,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9865,27 +10759,27 @@
               "legendFormat": "Number of active sessions",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_connections_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_connections_total{instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total number of created sessions",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_requests_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_requests_total{instance=\"$host\"}[$__rate_interval])",
               "hide": false,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total number of requests (TCP or HTTP)",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -9940,6 +10834,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -9968,9 +10869,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -9992,7 +10894,7 @@
               "legendFormat": "Current number of connections per second over last elapsed second",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_limit_connection_rate{instance=\"$host\"}",
@@ -10001,7 +10903,7 @@
               "legendFormat": "Configured maximum number of connections per second.",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_connection_rate{instance=\"$host\"}",
@@ -10011,7 +10913,7 @@
               "legendFormat": "Maximum observed number of connections per second",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10066,6 +10968,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10094,9 +11003,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10118,7 +11028,7 @@
               "legendFormat": "Maximum number of concurrent connections",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_hard_max_connections{instance=\"$host\"}",
@@ -10127,7 +11037,7 @@
               "legendFormat": "Initial Maximum number of concurrent connections",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10198,6 +11108,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10226,9 +11143,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10250,7 +11168,7 @@
               "legendFormat": "Current memory used for zlib in bytes",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_zlib_memory{instance=\"$host\"}",
@@ -10259,7 +11177,7 @@
               "legendFormat": "Configured maximum amount of memory for zlib in bytes",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10314,6 +11232,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10342,9 +11267,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10366,22 +11292,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_process_http_comp_bytes_in_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_http_comp_bytes_in_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Number of bytes per second over last elapsed second, before http compression",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_http_comp_bytes_out_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_http_comp_bytes_out_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Number of bytes per second over last elapsed second, after http compression",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_limit_http_comp{instance=\"$host\"}",
@@ -10390,7 +11316,7 @@
               "legendFormat": "Configured maximum input compression rate in bytes",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10461,6 +11387,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10489,9 +11422,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10507,22 +11441,22 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_process_ssl_cache_lookups_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_ssl_cache_lookups_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total number of SSL session cache lookups",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_ssl_cache_misses_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_ssl_cache_misses_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total number of SSL session cache misses",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10577,6 +11511,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10605,9 +11546,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10634,7 +11576,7 @@
               "legendFormat": "Current frontend SSL Key computation per second over last elapsed second",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_frontend_ssl_key_rate{instance=\"$host\"}",
@@ -10644,7 +11586,7 @@
               "legendFormat": "Maximum observed frontend SSL Key computation per second",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_current_backend_ssl_key_rate{instance=\"$host\"}",
@@ -10653,7 +11595,7 @@
               "legendFormat": "Current backend SSL Key computation per second over last elapsed second",
               "metric": "",
               "refId": "D",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_backend_ssl_key_rate{instance=\"$host\"}",
@@ -10663,7 +11605,7 @@
               "legendFormat": "Maximum observed backend SSL Key computation per second",
               "metric": "",
               "refId": "E",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10718,6 +11660,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10746,9 +11695,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10770,7 +11720,7 @@
               "legendFormat": "Current number of SSL sessions per second over last elapsed second",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_limit_ssl_rate{instance=\"$host\"}",
@@ -10780,7 +11730,7 @@
               "legendFormat": "Configured maximum number of SSL sessions per second",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_ssl_rate{instance=\"$host\"}",
@@ -10790,7 +11740,7 @@
               "legendFormat": "Maximum observed number of SSL sessions per second",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10845,6 +11795,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -10873,9 +11830,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -10898,7 +11856,7 @@
               "legendFormat": "Current number of opened SSL connections",
               "metric": "",
               "refId": "D",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_ssl_connections{instance=\"$host\"}",
@@ -10908,17 +11866,17 @@
               "legendFormat": "Configured maximum number of concurrent SSL connections",
               "metric": "",
               "refId": "E",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_ssl_connections_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_ssl_connections_total{instance=\"$host\"}[$__rate_interval])",
               "hide": true,
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total number of opened SSL connections",
               "metric": "",
               "refId": "F",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -10973,6 +11931,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11001,9 +11966,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11013,13 +11979,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "haproxy_process_frontent_ssl_reuse{instance=\"$host\"}",
+              "expr": "haproxy_process_frontend_ssl_reuse{instance=\"$host\"}",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "SSL session reuse ratio (percent)",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11091,6 +12057,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11098,7 +12071,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 21
+            "y": 55
           },
           "hiddenSeries": false,
           "id": 87,
@@ -11119,9 +12092,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11142,25 +12116,25 @@
               "legendFormat": "Per-process memory limit (in bytes); 0=unset",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_pool_allocated_bytes{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_pool_allocated_bytes{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total amount of memory allocated in pools (in bytes)",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_pool_used_bytes{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_pool_used_bytes{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Total amount of memory used in pools (in bytes)",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11184,14 +12158,16 @@
           },
           "yaxes": [
             {
+              "$$hashKey": "object:980",
               "format": "bytes",
-              "label": null,
+              "label": "counter",
               "logBase": 1,
               "max": null,
               "min": 0,
               "show": true
             },
             {
+              "$$hashKey": "object:981",
               "format": "short",
               "label": null,
               "logBase": 1,
@@ -11213,6 +12189,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11220,7 +12203,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 21
+            "y": 55
           },
           "hiddenSeries": false,
           "id": 107,
@@ -11241,9 +12224,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11253,13 +12237,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_process_current_tasks{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_current_tasks{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Current number of tasks",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_current_run_queue{instance=\"$host\"}",
@@ -11268,7 +12252,7 @@
               "legendFormat": "Current number of tasks in the run-queue",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_stopping{instance=\"$host\"}",
@@ -11277,7 +12261,7 @@
               "legendFormat": "Non zero means stopping in progress",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11332,6 +12316,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11339,7 +12330,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 34
+            "y": 68
           },
           "hiddenSeries": false,
           "id": 89,
@@ -11360,9 +12351,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11379,7 +12371,7 @@
               "legendFormat": "Maximum number of open file descriptors; 0=unset",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_max_sockets{instance=\"$host\"}",
@@ -11388,7 +12380,7 @@
               "legendFormat": "Maximum numer of open sockets",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11443,6 +12435,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11450,7 +12449,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 34
+            "y": 68
           },
           "hiddenSeries": false,
           "id": 99,
@@ -11471,9 +12470,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11496,25 +12496,25 @@
               "legendFormat": "Configured maximum number of pipes",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_pipes_used_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_pipes_used_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Number of pipes in used",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_pipes_free_total{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_pipes_free_total{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Number of pipes unused",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11569,6 +12569,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11576,7 +12583,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 47
+            "y": 81
           },
           "hiddenSeries": false,
           "id": 86,
@@ -11597,9 +12604,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11615,7 +12623,7 @@
               "legendFormat": "Threads",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_nbproc{instance=\"$host\"}",
@@ -11624,7 +12632,7 @@
               "legendFormat": "Processes",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11679,6 +12687,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11686,7 +12701,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 47
+            "y": 81
           },
           "hiddenSeries": false,
           "id": 88,
@@ -11707,9 +12722,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11725,7 +12741,7 @@
               "legendFormat": "Total number of failed pool allocations",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11780,6 +12796,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11787,7 +12810,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 60
+            "y": 94
           },
           "hiddenSeries": false,
           "id": 108,
@@ -11808,9 +12831,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11826,7 +12850,7 @@
               "legendFormat": "Idle to total ratio over last sample (percent)",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11879,6 +12903,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -11886,7 +12917,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 60
+            "y": 94
           },
           "hiddenSeries": false,
           "id": 109,
@@ -11907,9 +12938,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -11919,31 +12951,31 @@
           "steppedLine": false,
           "targets": [
             {
-              "expr": "irate(haproxy_process_jobs{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_jobs{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Current number of active jobs (listeners, sessions, open devices)",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_unstoppable_jobs{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_unstoppable_jobs{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Current number of active jobs that can't be stopped during a soft stop",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             },
             {
-              "expr": "irate(haproxy_process_listeners{instance=\"$host\"}[5m])",
+              "expr": "rate(haproxy_process_listeners{instance=\"$host\"}[$__rate_interval])",
               "interval": "$interval",
               "intervalFactor": 1,
               "legendFormat": "Current number of active listeners",
               "metric": "",
               "refId": "C",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -11998,6 +13030,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -12005,7 +13044,7 @@
             "h": 13,
             "w": 12,
             "x": 0,
-            "y": 73
+            "y": 107
           },
           "hiddenSeries": false,
           "id": 110,
@@ -12026,9 +13065,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -12044,7 +13084,7 @@
               "legendFormat": "Current number of active peers",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
             },
             {
               "expr": "haproxy_process_connected_peers{instance=\"$host\"}",
@@ -12053,7 +13093,7 @@
               "legendFormat": "Current number of connected peers",
               "metric": "",
               "refId": "B",
-              "step": 30
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12108,6 +13148,13 @@
           "datasource": "${DS_PROMETHEUS}",
           "editable": true,
           "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
           "fill": 2,
           "fillGradient": 0,
           "grid": {},
@@ -12115,7 +13162,7 @@
             "h": 13,
             "w": 12,
             "x": 12,
-            "y": 73
+            "y": 107
           },
           "hiddenSeries": false,
           "id": 111,
@@ -12136,9 +13183,10 @@
           "maxPerRow": 1,
           "nullPointMode": "null",
           "options": {
-            "dataLinks": []
+            "alertThreshold": true
           },
           "percentage": false,
+          "pluginVersion": "7.3.7",
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
@@ -12154,7 +13202,16 @@
               "legendFormat": "Total number of dropped logs",
               "metric": "",
               "refId": "A",
-              "step": 30
+              "step": 240
+            },
+            {
+              "expr": "haproxy_process_recv_logs_total{instance=\"$host\"}",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Total number of log messages received by log-forwarding listeners",
+              "metric": "",
+              "refId": "B",
+              "step": 240
             }
           ],
           "thresholds": [],
@@ -12200,6 +13257,242 @@
             "align": false,
             "alignLevel": null
           }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "decimals": 1,
+          "description": "",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 2,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 15,
+            "w": 12,
+            "x": 0,
+            "y": 120
+          },
+          "hiddenSeries": false,
+          "id": 217,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxPerRow": 2,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "rate(haproxy_process_bytes_out_total{instance=\"$host\"}[$__rate_interval])*8",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Emitted by current worker {{ proxy }}",
+              "metric": "haproxy_backend_",
+              "refId": "A",
+              "step": 240
+            },
+            {
+              "expr": "rate(haproxy_process_spliced_bytes_out_total{instance=\"$host\"}[$__rate_interval])*8",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "Emitted by current worker through a kernel pipe {{ proxy }}",
+              "metric": "haproxy_backend_",
+              "refId": "B",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Process - Bytes out",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:3132",
+              "format": "bits",
+              "label": "counter",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            },
+            {
+              "$$hashKey": "object:3133",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_PROMETHEUS}",
+          "editable": true,
+          "error": false,
+          "fieldConfig": {
+            "defaults": {
+              "custom": {},
+              "links": []
+            },
+            "overrides": []
+          },
+          "fill": 2,
+          "fillGradient": 0,
+          "grid": {},
+          "gridPos": {
+            "h": 13,
+            "w": 12,
+            "x": 12,
+            "y": 120
+          },
+          "hiddenSeries": false,
+          "id": 218,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxPerRow": 1,
+          "nullPointMode": "null",
+          "options": {
+            "alertThreshold": true
+          },
+          "percentage": false,
+          "pluginVersion": "7.3.7",
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "$$hashKey": "object:14910",
+              "alias": "/.*Configured.*/",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "haproxy_process_uptime_seconds{instance=\"$host\"}",
+              "interval": "$interval",
+              "intervalFactor": 1,
+              "legendFormat": "How long ago this worker process was started",
+              "metric": "",
+              "refId": "A",
+              "step": 240
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "Process - Uptime",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "$$hashKey": "object:14930",
+              "format": "s",
+              "label": "counter",
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "$$hashKey": "object:14931",
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
         }
       ],
       "repeat": null,
@@ -12208,7 +13501,7 @@
     }
   ],
   "refresh": "5m",
-  "schemaVersion": 22,
+  "schemaVersion": 26,
   "style": "dark",
   "tags": [
     "haproxy",
@@ -12221,9 +13514,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": false,
-        "index": -1,
         "label": "Host",
         "multi": false,
         "name": "host",
@@ -12244,9 +13537,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Backend",
         "multi": true,
         "name": "backend",
@@ -12267,9 +13560,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Frontend",
         "multi": true,
         "name": "frontend",
@@ -12290,9 +13583,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "Server",
         "multi": true,
         "name": "server",
@@ -12313,9 +13606,9 @@
         "current": {},
         "datasource": "${DS_PROMETHEUS}",
         "definition": "",
+        "error": null,
         "hide": 0,
         "includeAll": true,
-        "index": -1,
         "label": "HTTP Code",
         "multi": true,
         "name": "code",
@@ -12340,6 +13633,7 @@
           "text": "30s",
           "value": "30s"
         },
+        "error": null,
         "hide": 0,
         "label": "Interval",
         "name": "interval",
@@ -12418,9 +13712,6 @@
   },
   "timezone": "browser",
   "title": "HAProxy 2 Full",
-  "uid": "UXquu87Mz",
-  "variables": {
-    "list": []
-  },
-  "version": 86
+  "uid": "rEqu1u5ue",
+  "version": 9
 }
